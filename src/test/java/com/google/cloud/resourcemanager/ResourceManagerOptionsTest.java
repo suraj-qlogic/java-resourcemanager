@@ -16,9 +16,10 @@
 
 package com.google.cloud.resourcemanager;
 
+import static org.junit.Assert.fail;
+
 import com.google.cloud.TransportOptions;
 import org.easymock.EasyMock;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class ResourceManagerOptionsTest {
@@ -28,7 +29,7 @@ public class ResourceManagerOptionsTest {
     try {
       ResourceManagerOptions.newBuilder()
           .setTransportOptions(EasyMock.<TransportOptions>createMock(TransportOptions.class));
-      Assert.fail();
+      fail();
     } catch (IllegalArgumentException expected) {
     }
   }
