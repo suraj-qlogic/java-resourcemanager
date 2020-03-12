@@ -18,13 +18,18 @@ package com.google.cloud.resourcemanager;
 
 import com.google.cloud.TransportOptions;
 import org.easymock.EasyMock;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ResourceManagerOptionsTest {
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testInvalidTransport() {
-    ResourceManagerOptions.newBuilder()
-        .setTransportOptions(EasyMock.<TransportOptions>createMock(TransportOptions.class));
+    try {
+      ResourceManagerOptions.newBuilder()
+          .setTransportOptions(EasyMock.<TransportOptions>createMock(TransportOptions.class));
+      Assert.fail();
+    } catch (IllegalArgumentException expected) {
+    }
   }
 }

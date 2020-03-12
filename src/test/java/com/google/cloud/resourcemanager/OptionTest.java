@@ -19,6 +19,7 @@ package com.google.cloud.resourcemanager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import com.google.cloud.resourcemanager.spi.v1beta1.ResourceManagerRpc;
 import org.junit.Test;
@@ -56,8 +57,12 @@ public class OptionTest {
     assertNull(option.getValue());
   }
 
-  @Test(expected = NullPointerException.class)
+  @Test
   public void testConstructorException() {
-    new Option(null, VALUE) {};
+    try {
+      new Option(null, VALUE) {};
+      fail();
+    } catch (NullPointerException expected) {
+    }
   }
 }

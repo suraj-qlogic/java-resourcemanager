@@ -407,7 +407,7 @@ public class ResourceManagerImplTest {
         returnedProject);
   }
 
-  @Test(expected = ResourceManagerException.class)
+  @Test
   public void testNonRetryableException() {
     ResourceManagerRpcFactory rpcFactoryMock = EasyMock.createMock(ResourceManagerRpcFactory.class);
     ResourceManagerRpc resourceManagerRpcMock = EasyMock.createMock(ResourceManagerRpc.class);
@@ -425,7 +425,12 @@ public class ResourceManagerImplTest {
                 403, "Project " + PARTIAL_PROJECT.getProjectId() + " not found."))
         .once();
     EasyMock.replay(resourceManagerRpcMock);
-    resourceManagerMock.get(PARTIAL_PROJECT.getProjectId());
+    try {
+      resourceManagerMock.get(PARTIAL_PROJECT.getProjectId());
+      fail();
+    } catch (ResourceManagerException e) {
+      assertTrue(e.getMessage().contains("Project partial-project not found"));
+    }
   }
 
   @Test
